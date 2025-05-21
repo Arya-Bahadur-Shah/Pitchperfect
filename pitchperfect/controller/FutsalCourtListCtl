@@ -1,0 +1,48 @@
+package onlinefruitshop.controller;
+
+import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.*;
+
+import onlinefruitshop.bean.FutsalCourtBean;
+import onlinefruitshop.model.FutsalCourtModel;
+
+@WebServlet("/ctl/FutsalCourtListCtl")
+public class FutsalCourtListCtl extends HttpServlet {
+    private static final long serialVersionUID = 1L;
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        int pageNo = 1;
+        int pageSize = 10;
+
+        // Prepare bean and model
+        FutsalCourtBean bean = new FutsalCourtBean();
+        FutsalCourtModel model = new FutsalCourtModel();
+
+        try {
+            // Call model's search method which may throw Exception
+            List<FutsalCourtBean> list = model.search(bean, pageNo, pageSize);
+
+            // Set attributes for JSP
+            request.setAttribute("list", list);
+            request.setAttribute("pageNo", pageNo);
+            request.setAttribute("pageSize", pageSize);
+
+            // Forward to the list JSP
+            request.getRequestDispatcher("/cjsp/FutsalCourtList.jsp").forward(request, response);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            // Set error message and forward to error JSP
+            request.setAttribute("error", "Error retrieving futsal courts: " + e.getMessage());
+            request.getRequestDispatcher("/cjsp/Error.jsp").forward(request, response);
+        }
+    }
+}
