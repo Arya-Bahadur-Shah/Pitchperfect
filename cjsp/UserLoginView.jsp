@@ -7,7 +7,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>Login - Online Fruit Shop</title>
+    <title>Login - PitchPerfect</title>
 </head>
 <%@ include file="Header.jsp" %>
 <body style="margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #ffffff;">
